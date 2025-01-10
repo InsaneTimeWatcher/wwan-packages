@@ -32,7 +32,7 @@ return network.registerProtocol('quectel', {
 	},
 
 	getOpkgPackage: function() {
-		return 'quectel-cm';
+		return 'quectel-CM-5G';
 	},
 
 	isFloating: function() {
