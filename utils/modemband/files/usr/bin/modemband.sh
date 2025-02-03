@@ -320,6 +320,11 @@ for _DEV in $_DEVS; do
 	fi
 done
 
+if [ -e /dev/mhi_DUN ]; then
+. /usr/share/modemband/2c7c0801
+_DEVICE=/dev/mhi_DUN
+fi
+
 if [ -z "$_DEVICE" ]; then
 	if [ "x$1" = "xjson" ]; then
 		echo '{"error":"No supported modem was found, quitting..."}'
