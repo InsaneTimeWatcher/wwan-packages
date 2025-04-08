@@ -321,8 +321,15 @@ for _DEV in $_DEVS; do
 done
 
 if [ -e /dev/mhi_DUN ]; then
-. /usr/share/modemband/2c7c0801
-_DEVICE=/dev/mhi_DUN
+MODELA=$(sms_tool -d /dev/mhi_DUN at "AT+CGMM" | tr -s "\n" | xargs)
+MODELACUT=$(echo $MODELA | sed s/"AT+CGMM "//)
+MODEMSCRIPT=$(grep -rl $MODELACUT $RES/*)
+  if [ -z "$MODEMSCRIPT" ]; then
+     echo "Device not found in modem scripts"
+  else
+     . $MODEMSCRIPT
+     _DEVICE=/dev/mhi_DUN
+  fi
 fi
 
 if [ -z "$_DEVICE" ]; then
