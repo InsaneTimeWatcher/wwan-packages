@@ -448,6 +448,16 @@ fi
 
 fi
 
+if [ "$DEVICE" == "/dev/mhi_DUN" ]; then
+MODELA=$(sms_tool -d $DEVICE at "AT+CGMM" | tr -s "\n" | xargs)
+MODELACUT=$(echo $MODELA | sed s/"AT+CGMM "//)
+MODEMSCRIPT=$(grep -rl $MODELACUT $RES/modem/*)
+  if [ -z "$MODEMSCRIPT" ]; then
+     echo '{"error":"Device not found in modem scripts"}'
+  else
+     . $MODEMSCRIPT
+  fi
+fi
 
 cat <<EOF
 {
