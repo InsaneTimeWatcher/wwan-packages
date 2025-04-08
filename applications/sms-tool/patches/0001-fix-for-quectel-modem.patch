@@ -1,0 +1,39 @@
+--- a/sms_main.c
++++ b/sms_main.c
+@@ -256,7 +256,8 @@ int main(int argc, char* argv[])
+ 			sprintf(pdustr+2*i, "%02X", pdu[i]);
+ 		sprintf(pdustr+2*i, "%c\r\n", 0x1A);   // End PDU mode with Ctrl-Z.
+
+-		fputs("AT+CMGF=0\r\n", pf);
++		fputs("AT+CMGF=0", pf);
++		fputs("\r\n", pf);
+ 		while(fgets(buf, sizeof(buf), pfi)) {
+ 			if(starts_with("OK", buf))
+ 				break;
+@@ -300,12 +301,14 @@ int main(int argc, char* argv[])
+ 					break;
+ 			}
+ 		}
+-		fputs("AT+CMGF=0\r\n", pf);
++		fputs("AT+CMGF=0", pf);
++		fputs("\r\n", pf);
+ 		while(fgets(buf, sizeof(buf), pfi)) {
+ 			if(starts_with("OK", buf))
+ 				break;
+ 		}
+-		fputs("AT+CMGL=4\r\n", pf);
++		fputs("AT+CMGL=4", pf);
++		fputs("\r\n", pf);
+ 		int idx[1024];
+ 		int count  = 0;
+ 		if(jsonoutput == 1) {
+@@ -490,7 +493,8 @@ int main(int argc, char* argv[])
+ 					break;
+ 			}
+ 		}
+-		fputs("AT+CPMS?\r\n", pf);
++		fputs("AT+CPMS?", pf);
++		fputs("\r\n", pf);
+ 		while(fgets(buf, sizeof buf, pfi))
+ 		{
+ 			if(starts_with("+CPMS:", buf))
